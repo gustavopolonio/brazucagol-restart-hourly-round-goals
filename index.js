@@ -12,6 +12,8 @@ const port = process.env.PORT || 3000
 
 
 async function restartGoals(restartType) {
+  console.log('Restart')
+
   try {
     const response = await fauna.query(
       q.Map(
@@ -51,8 +53,9 @@ const timer = setInterval(async () => {
 
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
-  if (minutes === '00' && seconds === '00') { // Restart hourly Goals
-    await restartGoals('avatarHourlyGoals')
+  if (seconds === '00') { // Restart hourly Goals
+    const response = await restartGoals('avatarHourlyGoals')
+    console.log(response)
   }
 
   const currentDateInSeconds = (Number(hours) * 60 * 60) + (Number(minutes) * 60) + Number(seconds)
