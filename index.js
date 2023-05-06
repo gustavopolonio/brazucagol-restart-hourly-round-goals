@@ -8,7 +8,7 @@ dotenv.config()
 
 const server = express()
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3002
 
 
 async function restartGoals(restartType) {
@@ -41,7 +41,6 @@ async function restartGoals(restartType) {
   }
 }
 
-
 const timer = setInterval(async () => {
   const date = new Date()
   const dateInBraziliaTimeZone = date.toLocaleString("pt-BR", {
@@ -53,6 +52,7 @@ const timer = setInterval(async () => {
 
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
+  console.log(seconds)
   if (seconds === '00') { // Restart hourly Goals
     const response = await restartGoals('avatarHourlyGoals')
     console.log(response)
@@ -69,8 +69,6 @@ const timer = setInterval(async () => {
 
   return () => clearTimeout(timer)
 }, 1000)
-
-
 
 server.listen(port, () => {
   console.log("Server initialized")
