@@ -1,3 +1,5 @@
+// Link server on: https://dashboard.render.com/
+
 import express from 'express'
 import { fauna } from './services/faunadb.js'
 import all from 'faunadb'
@@ -12,8 +14,6 @@ const port = process.env.PORT || 3002
 
 
 async function restartGoals(restartType) {
-  console.log('Restart')
-
   try {
     const response = await fauna.query(
       q.Map(
@@ -52,10 +52,8 @@ const timer = setInterval(async () => {
 
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
-  console.log(seconds)
-  if (seconds === '00') { // Restart hourly Goals
-    const response = await restartGoals('avatarHourlyGoals')
-    console.log(response)
+  if (minutes === '00' && seconds === '00') { // Restart hourly Goals
+    await restartGoals('avatarHourlyGoals')
   }
 
   const currentDateInSeconds = (Number(hours) * 60 * 60) + (Number(minutes) * 60) + Number(seconds)
