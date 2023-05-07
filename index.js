@@ -53,7 +53,7 @@ const timer = setInterval(async () => {
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
   console.log(minutes)
-  if (minutes === '00') { // Restart hourly Goals
+  if (seconds === '00') { // Restart hourly Goals
     await restartGoals('avatarHourlyGoals')
   }
 
