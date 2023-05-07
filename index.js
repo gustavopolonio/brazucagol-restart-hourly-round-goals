@@ -1,4 +1,4 @@
-// Link server on: https://dashboard.render.com/
+// Link server on: https://vercel.com/gustavopolonio/brazucagol-restart-hourly-round-goals
 
 import express from 'express'
 import { fauna } from './services/faunadb.js'
@@ -52,8 +52,7 @@ const timer = setInterval(async () => {
 
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
-  console.log(minutes)
-  if (seconds === '00') { // Restart hourly Goals
+  if (minutes === '00' && seconds === '00') { // Restart hourly Goals
     await restartGoals('avatarHourlyGoals')
   }
 
