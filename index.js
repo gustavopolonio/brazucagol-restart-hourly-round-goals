@@ -52,13 +52,14 @@ const timer = setInterval(async () => {
 
   const [hours, minutes, seconds] = dateInBraziliaTimeZone.split(":")
 
-  if (minutes === '00' && seconds === '00') { // Restart hourly Goals
+  console.log(minutes)
+  if (minutes === '00') { // Restart hourly Goals
     await restartGoals('avatarHourlyGoals')
   }
 
   const currentDateInSeconds = (Number(hours) * 60 * 60) + (Number(minutes) * 60) + Number(seconds)
   
-  // Round start at 20:00:00 (Brasilia)
+  // Round starts at 20:00:00 (Brasilia)
   const roundStartInSeconds = 20 * 60 * 60
 
   if (currentDateInSeconds === roundStartInSeconds) { // Restart round Goals
