@@ -1,17 +1,11 @@
-// Link req para acessar fauna: https://restart-brazucagol.onrender.com/
+// Link req para acessar fauna: https://app.cyclic.sh/ (github do sr programador)
 // Link cron job: https://console.cron-job.org/jobs
-
-// Arrumar esse arquivo para restart hourly e round
-// Apagar pasta services
-
-
 
 import cors from 'cors'
 import express from 'express'
 import { fauna } from './services/faunadb.js'
 import all from 'faunadb'
 const { query: q } = all
-
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -49,10 +43,7 @@ async function restartGoals(restartType) {
   }
 }
 
-server.get('/avatarHourlyGoals', async (req, res) => {
-  console.log(req.params)
-  console.log(req.query)
-
+server.get('/avatarHourlyGoals', async (_, res) => {
   try {
     const response = await restartGoals('avatarHourlyGoals')
     return res.json({ message: response })
@@ -62,7 +53,7 @@ server.get('/avatarHourlyGoals', async (req, res) => {
   }
 })
 
-server.get('/avatarRoundGoals', async (req, res) => {
+server.get('/avatarRoundGoals', async (_, res) => {
   try {
     const response = await restartGoals('avatarRoundGoals')
     return res.json({ message: response })
