@@ -69,10 +69,39 @@ const port = process.env.PORT || 3002
 // }, 1000)
 
 
-cron.schedule("* * * * *", async () => {
-  console.log("A cada 1 minuto--")
-  console.log("A cada 1 minuto--")
+// cron.schedule("* * * * *", async () => {
+//   console.log("A cada 1 minuto--")
+//   console.log("A cada 1 minuto--")
 
+//   try {
+//     const response = await fauna.query(
+//       q.Map(
+//         q.Paginate(
+//           q.Documents(
+//             q.Collection("individualGoals")
+//           ),
+//           { size: 100000 }
+//         ),
+//         q.Lambda(
+//           "x",
+//           q.Update(
+//             q.Var("x"),
+//             {
+//               data: { ['avatarHourlyGoals']: 0 }
+//             }
+//           )
+//         )
+//       )
+//     )
+
+//     return response
+//   } catch(err) {
+//     console.log(err)
+//   }
+// })  
+
+
+server.get('/', async (req, res) => {
   try {
     const response = await fauna.query(
       q.Map(
@@ -97,9 +126,9 @@ cron.schedule("* * * * *", async () => {
     return response
   } catch(err) {
     console.log(err)
+    return err
   }
-})  
-
+})
 
 server.listen(port, () => {
   console.log("Server initialized")
