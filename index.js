@@ -125,7 +125,7 @@ server.get('/', async (req, res) => {
       )
     )
 
-    return response
+    return res.json(response)
   } catch(err) {
     console.log(err)
     return err
