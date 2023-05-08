@@ -1,6 +1,7 @@
 // Link server on: https://vercel.com/gustavopolonio/brazucagol-restart-hourly-round-goals
 
-import express from 'express'
+const express = require('express')
+const cors = require('cors')
 import { fauna } from './services/faunadb.js'
 import all from 'faunadb'
 const { query: q } = all
@@ -126,10 +127,10 @@ server.get('/', async (req, res) => {
       )
     )
 
-    return res.json(response)
+    return res.json({ message: response })
   } catch(err) {
     console.log(err)
-    return err
+    return res.json({ message: "Erro" })
   }
 })
 
