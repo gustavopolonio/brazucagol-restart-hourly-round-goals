@@ -9,6 +9,8 @@
 import cors from 'cors'
 import express from 'express'
 import { fauna } from './services/faunadb.js'
+import all from 'faunadb'
+const { query: q } = all
 
 import dotenv from 'dotenv'
 
@@ -52,7 +54,7 @@ server.get('/avatarHourlyGoals', async (req, res) => {
   console.log(req.query)
 
   try {
-    const response = restartGoals('avatarHourlyGoals')
+    const response = await restartGoals('avatarHourlyGoals')
     return res.json({ message: response })
   } catch(err) {
     console.log(err)
@@ -62,7 +64,7 @@ server.get('/avatarHourlyGoals', async (req, res) => {
 
 server.get('/avatarRoundGoals', async (req, res) => {
   try {
-    const response = restartGoals('avatarRoundGoals')
+    const response = await restartGoals('avatarRoundGoals')
     return res.json({ message: response })
   } catch(err) {
     console.log(err)
