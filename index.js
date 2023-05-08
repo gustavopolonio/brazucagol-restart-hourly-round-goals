@@ -2,13 +2,19 @@
 
 import cors from 'cors'
 import express from 'express'
-import { fauna } from './services/faunadb.js'
+// import { fauna } from './services/faunadb.js'
 import all from 'faunadb'
 const { query: q } = all
 import dotenv from 'dotenv'
 import cron from 'node-cron'
 
+const { Client } = all
+
 dotenv.config()
+
+const fauna = new Client({
+  secret: process.env.FAUNA_SECRET_KEY
+})
 
 const server = express()
 server.use(cors())
@@ -130,7 +136,7 @@ server.get('/', async (req, res) => {
     return res.json({ message: response })
   } catch(err) {
     console.log(err)
-    return res.json({ message: "Erro" })
+    return res.json({ message: err })
   }
 })
 
