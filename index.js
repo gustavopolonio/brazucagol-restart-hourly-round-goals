@@ -12,6 +12,10 @@ const server = express()
 
 const port = process.env.PORT || 3002
 
+server.get('/', (req, res) => {
+  return res.json({ message: 'Im alive' })
+})
+
 
 async function restartGoals(restartType) {
   try {
