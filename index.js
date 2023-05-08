@@ -102,6 +102,8 @@ const port = process.env.PORT || 3002
 
 
 server.get('/', async (req, res) => {
+  console.log('hi')
+
   try {
     const response = await fauna.query(
       q.Map(
