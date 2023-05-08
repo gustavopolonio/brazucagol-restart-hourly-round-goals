@@ -1,20 +1,18 @@
-// Link server on: https://vercel.com/gustavopolonio/brazucagol-restart-hourly-round-goals
+// Link req para acessar fauna: https://restart-brazucagol.onrender.com/
+// Link cron job: https://console.cron-job.org/jobs
+
+// Arrumar esse arquivo para restart hourly e round
+// Apagar pasta services
+
+
 
 import cors from 'cors'
 import express from 'express'
-// import { fauna } from './services/faunadb.js'
-import all from 'faunadb'
-const { query: q } = all
-import dotenv from 'dotenv'
-import cron from 'node-cron'
+import { fauna } from './services/faunadb.js'
 
-const { Client } = all
+import dotenv from 'dotenv'
 
 dotenv.config()
-
-const fauna = new Client({
-  secret: process.env.FAUNA_SECRET_KEY
-})
 
 const server = express()
 server.use(cors())
@@ -109,13 +107,9 @@ const port = process.env.PORT || 3002
 // })  
 
 
-server.get('/', async (req, res) => {
-  console.log('fauna')
-  console.log(fauna)
-  console.log('port')
-  console.log(port)
-  console.log('ENV')
-  console.log(process.env.FAUNA_SECRET_KEY)
+server.get('/avatarHourlyGoals', async (req, res) => {
+  console.log(req.params)
+  console.log(req.query)
 
   try {
     const response = await fauna.query(
