@@ -108,11 +108,14 @@ const port = process.env.PORT || 3002
 //   }
 // })  
 
+
 server.get('/', async (req, res) => {
   console.log('fauna')
   console.log(fauna)
   console.log('port')
   console.log(port)
+  console.log('ENV')
+  console.log(process.env.FAUNA_SECRET_KEY)
 
   try {
     const response = await fauna.query(
