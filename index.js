@@ -1,7 +1,7 @@
 // Link server on: https://vercel.com/gustavopolonio/brazucagol-restart-hourly-round-goals
 
-const express = require('express')
-const cors = require('cors')
+import cors from 'cors'
+import express from 'express'
 import { fauna } from './services/faunadb.js'
 import all from 'faunadb'
 const { query: q } = all
