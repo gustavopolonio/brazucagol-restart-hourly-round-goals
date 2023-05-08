@@ -108,9 +108,11 @@ const port = process.env.PORT || 3002
 //   }
 // })  
 
-
 server.get('/', async (req, res) => {
-  console.log('hi')
+  console.log('fauna')
+  console.log(fauna)
+  console.log('port')
+  console.log(port)
 
   try {
     const response = await fauna.query(
