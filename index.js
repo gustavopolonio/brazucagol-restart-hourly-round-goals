@@ -10,6 +10,7 @@ import cron from 'node-cron'
 dotenv.config()
 
 const server = express()
+server.use(cors())
 
 const port = process.env.PORT || 3002
 
