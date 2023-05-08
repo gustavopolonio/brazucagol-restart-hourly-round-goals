@@ -19,33 +19,61 @@ server.use(cors())
 
 const port = process.env.PORT || 3002
 
-// async function restartGoals(restartType) {
-//   try {
-//     const response = await fauna.query(
-//       q.Map(
-//         q.Paginate(
-//           q.Documents(
-//             q.Collection("individualGoals")
-//           ),
-//           { size: 100000 }
-//         ),
-//         q.Lambda(
-//           "x",
-//           q.Update(
-//             q.Var("x"),
-//             {
-//               data: { [restartType]: 0 }
-//             }
-//           )
-//         )
-//       )
-//     )
+async function restartGoals(restartType) {
+  try {
+    const response = await fauna.query(
+      q.Map(
+        q.Paginate(
+          q.Documents(
+            q.Collection("individualGoals")
+          ),
+          { size: 100000 }
+        ),
+        q.Lambda(
+          "x",
+          q.Update(
+            q.Var("x"),
+            {
+              data: { [restartType]: 0 }
+            }
+          )
+        )
+      )
+    )
 
-//     return response
-//   } catch(err) {
-//     console.log(err)
-//   }
-// }
+    return response
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+server.get('/avatarHourlyGoals', async (req, res) => {
+  console.log(req.params)
+  console.log(req.query)
+
+  try {
+    const response = restartGoals('avatarHourlyGoals')
+    return res.json({ message: response })
+  } catch(err) {
+    console.log(err)
+    return res.json({ message: err })
+  }
+})
+
+server.get('/avatarRoundGoals', async (req, res) => {
+  try {
+    const response = restartGoals('avatarRoundGoals')
+    return res.json({ message: response })
+  } catch(err) {
+    console.log(err)
+    return res.json({ message: err })
+  }
+})
+
+server.listen(port, () => {
+  console.log("Server initialized")
+})
+
 
 // const timer = setInterval(async () => {
 //   const date = new Date()
@@ -73,72 +101,3 @@ const port = process.env.PORT || 3002
 
 //   return () => clearTimeout(timer)
 // }, 1000)
-
-
-// cron.schedule("* * * * *", async () => {
-//   console.log("A cada 1 minuto--")
-//   console.log("A cada 1 minuto--")
-
-//   try {
-//     const response = await fauna.query(
-//       q.Map(
-//         q.Paginate(
-//           q.Documents(
-//             q.Collection("individualGoals")
-//           ),
-//           { size: 100000 }
-//         ),
-//         q.Lambda(
-//           "x",
-//           q.Update(
-//             q.Var("x"),
-//             {
-//               data: { ['avatarHourlyGoals']: 0 }
-//             }
-//           )
-//         )
-//       )
-//     )
-
-//     return response
-//   } catch(err) {
-//     console.log(err)
-//   }
-// })  
-
-
-server.get('/avatarHourlyGoals', async (req, res) => {
-  console.log(req.params)
-  console.log(req.query)
-
-  try {
-    const response = await fauna.query(
-      q.Map(
-        q.Paginate(
-          q.Documents(
-            q.Collection("individualGoals")
-          ),
-          { size: 100000 }
-        ),
-        q.Lambda(
-          "x",
-          q.Update(
-            q.Var("x"),
-            {
-              data: { ['avatarHourlyGoals']: 0 }
-            }
-          )
-        )
-      )
-    )
-
-    return res.json({ message: response })
-  } catch(err) {
-    console.log(err)
-    return res.json({ message: err })
-  }
-})
-
-server.listen(port, () => {
-  console.log("Server initialized")
-})
