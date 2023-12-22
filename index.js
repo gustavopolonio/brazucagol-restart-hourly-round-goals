@@ -1,5 +1,5 @@
-// Link req para acessar fauna: https://app.cyclic.sh/ (github do sr programador)
-// Link cron job: https://console.cron-job.org/jobs
+// Link req para acessar fauna e resetar gols: https://app.cyclic.sh/ (github do sr programador)
+// Cyclic também está fazendo cron job
 
 import cors from 'cors'
 import express from 'express'
